@@ -33,7 +33,7 @@ from util.misc import NativeScalerWithGradNormCount as NativeScaler
 import models_mae
 
 from engine_pretrain import train_one_epoch
-import datasets.bboxdatast import BBoxDataset
+from datasets.bboxdataset import BBoxDataset
 
 
 def get_args_parser():
@@ -128,7 +128,7 @@ def main(args):
             transforms.ToTensor(),
             transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
     # dataset_train = datasets.ImageFolder(os.path.join(args.data_path, 'train'), transform=transform_train)
-    dataset_train = BBoxDataset(data_root=args.data_root, data_path=args.data_path, size=256, transform = transform)
+    dataset_train = BBoxDataset(data_root=args.data_root, data_path=args.data_path, size=256, transform = transform_train)
     print(dataset_train)
 
     if True:  # args.distributed:
