@@ -38,6 +38,7 @@ class BBoxDataset(torch.utils.data.Dataset):
         self.size = size
         self.image_listing = BBoxList()
         self.image_listing.load(data_path)
+        self.image_listing = self.image_listing.randomly_subsample(0.006, seed=0)
         self.root = data_root
 
     def __len__(self):

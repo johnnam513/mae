@@ -22,6 +22,7 @@ import torch.backends.cudnn as cudnn
 from torch.utils.tensorboard import SummaryWriter
 import torchvision.transforms as transforms
 import torchvision.datasets as datasets
+from datasets.csvloader import CSVDataset
 
 import timm
 
@@ -139,8 +140,20 @@ def main(args):
             transforms.CenterCrop(224),
             transforms.ToTensor(),
             transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
-    dataset_train = datasets.ImageFolder(os.path.join(args.data_path, 'train'), transform=transform_train)
-    dataset_val = datasets.ImageFolder(os.path.join(args.data_path, 'val'), transform=transform_val)
+    
+
+    dataset_train = CSVDataset(
+            image_root="/data/local/product_2020-04-28/images",
+            csv_root="/data/local/product_2020-04-28",
+            split="train",
+            transform=transform_train)
+    dataset_val = CSVDataset(
+            image_root="/data/local/product_2020-04-28/images",
+            csv_root="/data/local/product_2020-04-28",
+            split="test",
+            transform=transform_val)
+    #dataset_train = datasets.ImageFolder(os.path.join(args.data_path, 'train'), transform=transform_train)
+    #dataset_val = datasets.ImageFolder(os.path.join(args.data_path, 'val'), transform=transform_val)
     print(dataset_train)
     print(dataset_val)
 
